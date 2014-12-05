@@ -11,7 +11,9 @@
              oddRowClass: "oddRow",
              activeRowClass: "activeRow"
          }
+
          var options = $.extend(defaults, options);
+
          this.each(function() {
              var thisTable = $(this);
              //添加奇偶行颜色
