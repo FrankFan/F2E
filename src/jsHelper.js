@@ -27,5 +27,6 @@
                  $(this).removeClass(options.activeRowClass);
              });
          });
+
      };
  })(jQuery);
