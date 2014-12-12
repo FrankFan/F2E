@@ -72,3 +72,22 @@ img.src = 'http://www.baidu.com/img/bd_logo1.png';
 
 
 
+## 项目实战
+移动web相册
+
+主要技术
+* touch事件
+* CSS动画
+* 移动框架使用
+* canvas应用
+
+viewport: 为了使不同尺寸物理设备、不同分辨率下看到的网页效果一直，需要指定页面viewport
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+device-width：设备宽度
+
+initial-scale：为了使分辨率不同的设备看到相同的网页效果，指定初始大小
+
+CSS reset：各个元素有默认的样式，为了不影响整体控制，需要先reset一下
+
