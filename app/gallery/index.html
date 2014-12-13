@@ -37,7 +37,7 @@
 			var tmpl = '';
 			for (var i = 1; i <= total; i++) {
 				var p = padding;
-				if (i%3 == 1) {
+				if (i%4 == 1) {
 					p = 0;
 				};
 				var imgSrc = 'img/' + i + '.jpg';
@@ -67,6 +67,8 @@
 		var domImage = wImage[0];
 
 		var loadImg = function(id, callback){
+			$('#container').css({height:zWin.height(),'overflow':'hidden'});
+
 			$("#large_container").css({
 				width:  zWin.width(),
 				height: zWin.height()
@@ -117,8 +119,15 @@
 
 		// 关闭大图图层
 		$("#large_container").tap(function(){
+			$('#container').css({height:'auto','overflow':'auto'});
 			$(this).hide();
-		}).swipeLeft(function(){
+		});
+
+		$('#large_container').mousedown(function(e){
+			e.preventDefault();
+		});
+
+		$("#large_container").swipeLeft(function(){
 			cid++;
 			if (cid > total) {
 				cid = total;
@@ -131,7 +140,9 @@
 					wImage.addClass("animated bounceInRight");					
 				});
 			};
-		}).swipeRight(function(){
+		});
+
+		$("#large_container").swipeRight(function(){
 			cid--;
 			if (cid < 1) {
 				cid = 1;
