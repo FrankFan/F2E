@@ -5,6 +5,7 @@
 	<title>Gallery</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<script src="zepto.min.js"></script>
+	<script src="touch.js"></script>
 	<link rel="stylesheet" href="animate.css" type="text/css">
 	<style type="text/css">
 		blockquote, body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td, textarea, th, ul, img{
@@ -20,7 +21,7 @@
 <body>
 	<ul class="img-container" id="container">
 	</ul>
-	<div class="large" style="display:none;">
+	<div class="large animated fadeIn" id="large_container" style="display:none;">
 		<img alt="" id="large_img">
 	</div>
 
@@ -42,12 +43,11 @@
 				var imgSrc = 'img/' + i + '.jpg';
 				//tmpl += '<li style="width：'+picWidth+'px; height:'+picWidth+'px;padding-left:'+p+'px; padding-top:'+padding+'px;"><img src="' + imgSrc + '" /></li>'
 				//改造模板，不使用img标签，使用canvas对象渲染图片，效果更好，canvas会调用硬件GPU渲染
-				tmpl += '<li class="animated bounceIn" style="width：'+picWidth+'px; height:'+picWidth+'px;padding-left:'+p+'px; padding-top:'+padding+'px;"><canvas id="cvs_'+i+'"></canvas></li>'
+				tmpl += '<li data-id="'+ i +'" class="animated bounceIn" style="width：'+picWidth+'px; height:'+picWidth+'px;padding-left:'+p+'px; padding-top:'+padding+'px;"><canvas id="cvs_'+i+'"></canvas></li>'
 				//创建img对象
 				var imageObj = new Image();
 				imageObj.index = i;
 				imageObj.onload = function(){
-					console.log(this);
 					// 创建canvas对象
 					var cvs = $("#cvs_" + this.index)[0].getContext('2d');
 					cvs.width = this.width;
@@ -62,6 +62,89 @@
 		}
 
 		render();
+
+		var wImage = $("#large_img");
+		var domImage = wImage[0];
+
+		var loadImg = function(id, callback){
+			$("#large_container").css({
+				width:  zWin.width(),
+				height: zWin.height()
+			}).show();
+
+			var imgsrc = 'img/'+ id +'.large.jpg'
+			var imageObj = new Image();
+			imageObj.onload = function(){
+				var w = this.width;
+				var h = this.height;
+				var winWidth = zWin.width();
+				var winHeight = zWin.height();
+				//计算图片的真实高度
+				var realw = winHeight*w/h;
+				var paddingLeft = parseInt((winWidth - realw) / 2);
+				var realh = winWidth*h/w;
+				var paddingTop = parseInt((winHeight - realh) / 2);
+
+				// 加载之前先设置样式,否则会错位
+				wImage.css({
+					'width': 'auto',
+					'height': 'auto',
+					'padding-left': '0px',
+					'padding-top': '0px'
+				});
+
+				//判断一张图片是横图还是竖图
+				if (h / w > 1.2) {//竖图
+					wImage.attr('src', imgsrc).css('height', winHeight).css('padding-left', paddingLeft);
+				}else{ // 横图
+					wImage.attr('src', imgsrc).css('width', winWidth).css('padding-top', paddingTop);
+				};
+
+				// 如果不穿就不执行callback
+				callback&&callback();
+			};
+			imageObj.src = imgsrc;
+
+		};
+
+		//全局变量：当前页id
+		var cid;
+		// 点击小图查看大图
+		$("#container").delegate('li', 'tap', function () {
+			var _id = cid = $(this).attr('data-id');
+			loadImg(_id);
+		});
+
+		// 关闭大图图层
+		$("#large_container").tap(function(){
+			$(this).hide();
+		}).swipeLeft(function(){
+			cid++;
+			if (cid > total) {
+				cid = total;
+			}else{
+				loadImg(cid, function(){
+					domImage.addEventListener('webkitAnimationEnd', function(){
+						wImage.removeClass("animated bounceInRight");
+						domImage.removeEventListener('webKitAnimationEnd');
+					}, false);
+					wImage.addClass("animated bounceInRight");					
+				});
+			};
+		}).swipeRight(function(){
+			cid--;
+			if (cid < 1) {
+				cid = 1;
+			}else{
+				loadImg(cid, function(){
+					domImage.addEventListener('webkitAnimationEnd', function(){
+						wImage.removeClass("animated bounceInLeft");
+						domImage.removeEventListener('webKitAnimationEnd');
+					}, false);
+					wImage.addClass("animated bounceInLeft");					
+				});
+			};
+		});
 
 
 
