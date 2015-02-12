@@ -1,0 +1,68 @@
+.tiao{
+  color: #2b81a9;
+  font-weight: bold;
+  animation: tiao_fly 0.2s 0s alternate infinite;
+  -webkit-animation: tiao_fly 0.2s 0s alternate infinite;
+  -webkit-transform: rotateZ(-20.5deg);
+  position: absolute;
+}
+
+.ba{
+  color: #2b81a9;
+  font-weight: bold;
+  animation: ba_fly 0.2s .2s alternate infinite;
+  -webkit-animation: ba_fly 0.2s .2s alternate infinite;
+  -webkit-transform: rotateZ(3.5deg);
+  position: absolute;
+  left: 30px;
+}
+
+@keyframes tiao_fly {
+  0% {transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+@-webkit-keyframes tiao_fly {
+  0% {-webkit-transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {-webkit-transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+@-moz-keyframes tiao_fly {
+  0% {-moz-transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {-moz-transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+@-ms-keyframes tiao_fly {
+  0% {-ms-transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {-ms-transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+@-o-keyframes tiao_fly {
+  0% {-o-transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {-o-transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+@keyframes tiao_fly {
+  0% {transform:translateX(0%) translateY(-15%) rotateZ(-20.5deg);}
+  100% {transform:translateX(0%) translateY(-0%) rotateZ(-20.5deg);}
+}
+
+@keyframes ba_fly {
+  0% {transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
+@-webkit-keyframes ba_fly {
+  0% {-webkit-transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {-webkit-transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
+@-moz-keyframes ba_fly {
+  0% {-moz-transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {-moz-transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
+@-ms-keyframes ba_fly {
+  0% {-ms-transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {-ms-transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
+@-o-keyframes ba_fly {
+  0% {-o-transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {-o-transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
+@keyframes ba_fly {
+  0% {transform:translateX(0%) translateY(-15%) rotateZ(3.5deg);}
+  100% {transform:translateX(0%) translateY(-0%) rotateZ(3.5deg);}
+}
