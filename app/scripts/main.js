@@ -16,3 +16,5 @@ function clone(myObj){
 var a = { name: 'a', test: function(){ console.log('hi'); }, b:{ str: 'hehe'}}
 var b = clone(a);
 console.log(b);
+
+console.dir(typeof('ff'));
