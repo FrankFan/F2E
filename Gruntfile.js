@@ -22,11 +22,14 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var pkg = grunt.file.readJSON('package.json');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
     // Project settings
     config: config,
+    pkg: grunt.file.readJSON('package.json'),
 
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -265,17 +268,36 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= config.dist %>/scripts/scripts.js': [
-    //         '<%= config.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
+    uglify: {
+      options: {
+        // 压缩后会生成与文件同名的.map文件，便于调试
+        sourceMap: true, 
+
+      },
+      // dist: {
+      //   files: {
+      //     '<%= config.dist %>/scripts/scripts.js': [
+      //       '<%= config.dist %>/scripts/scripts.js'
+      //     ]
+      //   }
+      // }
+    },
+
+
+    // 合并插件
     // concat: {
-    //   dist: {}
+    //   options: {
+    //     separator: ';'
+    //   },
+    //   dist: {        
+    //     src: [
+    //           // '<%= config.app %>/scripts/index.js',
+    //           '<%= config.app %>/scripts/main1.js',
+    //           '<%= config.app %>/scripts/main2.js',
+    //           '<%= config.app %>/scripts/main3.js'
+    //          ],
+    //     dest: '<%= config.dist %>/scripts/concated.js'
+    //   }
     // },
 
     // Copies remaining files to places other tasks can use
@@ -383,8 +405,10 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('default', [
-    'newer:jshint',
-    'test',
-    'build'
+    // 'newer:jshint',
+    // 'test',
+    'concurrent:server',
+    'connect:livereload',
+    // 'build'
   ]);
 };
