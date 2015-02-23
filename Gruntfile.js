@@ -163,6 +163,8 @@ module.exports = function (grunt) {
       }
     },
 
+
+    // bower 配合 wiredep 使用
     // Automatically inject Bower components into the HTML file
     wiredep: {
       app: {
@@ -172,6 +174,7 @@ module.exports = function (grunt) {
       }
     },
 
+    // rev 配合 usemin 使用
     // Renames files for browser caching purposes
     rev: {
       dist: {
